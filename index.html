@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 40%;
+        width: 100dvw;
+        height: 100dvh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      const KEYS = [0x55, 0xAA];
+
+      fetch('bg.bin')
+        .then(response => response.arrayBuffer())
+        .then(buf => {
+          buf = new Uint8Array(buf);
+          output = new Uint8Array(buf.length);
+
+          let ki = 0;
+
+          for (let i = 0; i < buf.length; ++i) {
+            output[i] = buf[i] ^ KEYS[ki];
+
+            ki ^= 1;
+          }
+
+          const imageData = `data:image/png;base64,${output.toBase64()}`;
+
+          document.body.style.backgroundImage = `url("${imageData}")`;
+        });
+    </script>
+  </body>
+</html>
