@@ -21,6 +21,10 @@
         padding: 0;
       }
 
+      a {
+        display: none;
+      }
+
       .counter {
         display: flex;
         align-items: center;
@@ -32,12 +36,26 @@
         font-size: 1em;
         flex-wrap: wrap;
         text-align: center;
+        opacity: 0;
       }
 
       .counter:hover {
         color: gray;
         text-decoration: underline;
         cursor: pointer;
+      }
+
+      img[src^="//"] {
+        display: none !important;
+        opacity: 0;
+      }
+
+      div[id^="error_"] {
+        display: none !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: 100dvw !important;
+        top: 100dvh !important;
       }
     </style>
   </head>
@@ -48,7 +66,54 @@
         Você é o visitante número
       </span>
 
-      <img src="https://www.freevisitorcounters.com/en/counter/render/1535964/t/5" border="0" class="counterimg">
+      <a href='http://www.freevisitorcounters.com'>freevisitorcounters</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=78f9fdfc9f08f84059bb6f09003d8d4e19797a0d'></script>
+      <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1535977/t/5"></script>
+      <script type="text/javascript">
+        async function sleep(ms) {
+          return new Promise(resolve => {
+            setTimeout(resolve, ms);
+          });
+        }
+
+        async function doTheThing() {
+          let imgs = [];
+
+          while (imgs.length === 0) {
+            imgs = document.querySelectorAll('img');
+
+            await sleep(10);
+          }
+
+          const img = imgs[0];
+          const parent = img.parentNode;
+
+          parent.parentNode.appendChild(img);
+          parent.parentNode.replaceChild(img, parent);
+
+          let counter = null;
+
+          while (counter === null) {
+            counter = document.querySelector('.counter');
+
+            await sleep(10);
+          }
+
+          document.querySelectorAll('a').forEach(element => element.remove());
+
+          document.querySelectorAll('img').forEach(element => {
+            console.log('ddd', element.src)
+            if (element.src.startsWith('//') === false) {
+              return;
+            }
+console.log('MIJEI')
+            element.remove();
+          });
+
+          document.querySelector('.counter').style.opacity = 1;
+        }
+
+        doTheThing();
+      </script>
 
       <span>
         a entrar no cuzinho! ❤️
