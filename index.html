@@ -57,10 +57,25 @@
         left: 100dvw !important;
         top: 100dvh !important;
       }
+
+      .player {
+        width: 40dvw;
+        aspect-ratio: 1;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        display: inline;
+        cursor: pointer;
+      }
     </style>
   </head>
 
   <body>
+    <div class="player"></div>
+
     <div class="counter">
       <span>
         Você é o visitante número
@@ -101,11 +116,10 @@
           document.querySelectorAll('a').forEach(element => element.remove());
 
           document.querySelectorAll('img').forEach(element => {
-            console.log('ddd', element.src)
             if (element.src.startsWith('//') === false) {
               return;
             }
-console.log('MIJEI')
+
             element.remove();
           });
 
@@ -119,7 +133,14 @@ console.log('MIJEI')
         a entrar no cuzinho! ❤️
       </span>
     </div>
+
     <script type="text/javascript">
+      const audio = new Audio("ai.mp3");
+
+      document.querySelector('.player').addEventListener('pointerdown', () => {
+        audio.play();
+      });
+
       const KEYS = [0x55, 0xAA];
 
       fetch('bg.bin')
